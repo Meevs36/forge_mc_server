@@ -1,0 +1,35 @@
+# Author -- meevs
+# Creation Date -- 2023-06-24
+# File Name -- compose.yaml
+# Notes --
+#     -- 2023-06-24 -- Check https://files.minecraftforge.net/net/minecraftforge/forge/ for new forge builds
+
+version: "2.4"
+services:
+  forge:
+    image: "forge_mc-${MC_VERSION}-img"
+    container_name: "forge_mc-${MC_VERSION}"
+    build:
+      args:
+        INSTALL_DIR: "${INSTALL_DIR}"
+        JAVA_VERSION: "${JAVA_VERSION}"
+        MC_VERSION: "${MC_VERSION}"
+        FORGE_VERSION: "${FORGE_VERSION}"
+        SERVER_CONFIG: "${SERVER_CONFIG}"
+    environment:
+      MIN_RAM: "${MIN_RAM}"
+      MAX_RAM: "${MAX_RAM}"
+    stdin_open: true
+    tty: true
+    ports:
+      - "24454:24454/udp" # Voice mod 
+      - "25565:25565/tcp"
+      - "25565:25565/udp"
+    volumes:
+      - type: "volume"
+        source: "data"
+        target: "${INSTALL_DIR}"
+
+volumes:
+  data: {}
+
